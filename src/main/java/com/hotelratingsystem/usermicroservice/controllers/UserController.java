@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.hotelratingsystem.usermicroservice.entities.User;
 import com.hotelratingsystem.usermicroservice.services.UserService;
@@ -26,10 +27,13 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	RestTemplate restTemplate;
+	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<User> getUser(@PathVariable int id){
 		
-			User user = userService.getUser(id);
+			User user = userService.getUser(id);	
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	

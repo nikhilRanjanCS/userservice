@@ -14,6 +14,8 @@ public class Rating {
 	
 	
 	private int rating;
+	
+	private Hotel hotel;
 
 
 	public Rating() {
@@ -22,12 +24,13 @@ public class Rating {
 	}
 
 
-	public Rating(String ratingId, int userId, String hotelId, int rating) {
+	public Rating(String ratingId, int userId, String hotelId, int rating, Hotel hotel) {
 		super();
 		this.ratingId = ratingId;
 		this.userId = userId;
 		this.hotelId = hotelId;
 		this.rating = rating;
+		this.hotel = hotel;
 	}
 
 
@@ -68,6 +71,16 @@ public class Rating {
 
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 	
