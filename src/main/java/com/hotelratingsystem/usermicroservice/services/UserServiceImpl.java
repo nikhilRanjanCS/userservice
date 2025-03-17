@@ -15,6 +15,7 @@ import com.hotelratingsystem.usermicroservice.entities.Hotel;
 import com.hotelratingsystem.usermicroservice.entities.Rating;
 import com.hotelratingsystem.usermicroservice.entities.User;
 import com.hotelratingsystem.usermicroservice.exception.ResourceNotFoundException;
+import com.hotelratingsystem.usermicroservice.externalservices.HotelService;
 import com.hotelratingsystem.usermicroservice.repos.UserRepo;
 
 
@@ -27,6 +28,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private HotelService hotelService;
 
 	@Override
 	public User saveUser(User user) {
@@ -75,13 +79,13 @@ public class UserServiceImpl implements UserService{
 			);
 		List<Rating> userRatings = response.getBody();
 		
-		ResponseEntity<List<Hotel>> hotelServiceResponse = restTemplate.exchange(
-			    "http://HOTEL-SERVICE/api/hotel/getall",
-			    HttpMethod.GET,
-			    null,
-			    new ParameterizedTypeReference<List<Hotel>>() {}
-			);
-		List<Hotel> hotels = hotelServiceResponse.getBody();
+//		ResponseEntity<List<Hotel>> hotelServiceResponse = restTemplate.exchange(
+//			    "http://HOTEL-SERVICE/api/hotel/getall",
+//			    HttpMethod.GET,
+//			    null,
+//			    new ParameterizedTypeReference<List<Hotel>>() {}
+//			);
+		List<Hotel> hotels = hotelService.getHotels();
 		
 		
 		
