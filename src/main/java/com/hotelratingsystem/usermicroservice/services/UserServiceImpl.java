@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
 		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user id not found"));
 		
 		ResponseEntity<List<Rating>> response = restTemplate.exchange(
-			    "http://localhost:8082/api/rating/getratings/user/{userId}",
+			    "http://RATING-SERVICE/api/rating/getratings/user/{userId}",
 			    HttpMethod.GET,
 			    null,
 			    new ParameterizedTypeReference<List<Rating>>() {},
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService{
 		List<Rating> userRatings = response.getBody();
 		
 		ResponseEntity<List<Hotel>> hotelServiceResponse = restTemplate.exchange(
-			    "http://localhost:8081/api/hotel/getall",
+			    "http://HOTEL-SERVICE/api/hotel/getall",
 			    HttpMethod.GET,
 			    null,
 			    new ParameterizedTypeReference<List<Hotel>>() {}
