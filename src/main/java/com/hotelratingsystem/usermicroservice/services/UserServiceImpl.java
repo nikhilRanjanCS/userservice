@@ -44,13 +44,16 @@ public class UserServiceImpl implements UserService{
 		List<User> users = userRepo.findAll();
 		
 		ResponseEntity<List<Rating>> response = restTemplate.exchange(
-			    "http://localhost:8082/api/rating/getall",
+			    "http://RATING-SERVICE/api/rating/getall",
 			    HttpMethod.GET,
 			    null,
 			    new ParameterizedTypeReference<List<Rating>>() {}
 			);
 
 		List<Rating> ratings = response.getBody();
+		for(Rating rating:ratings) {
+			System.out.println(rating);
+		}
 		for(User user: users) {
 			List<Rating> userRatings = new ArrayList<>();
 			ratings.parallelStream().forEach((rating)->{
@@ -79,15 +82,19 @@ public class UserServiceImpl implements UserService{
 			);
 		List<Rating> userRatings = response.getBody();
 		
+		
+		
 //		ResponseEntity<List<Hotel>> hotelServiceResponse = restTemplate.exchange(
 //			    "http://HOTEL-SERVICE/api/hotel/getall",
 //			    HttpMethod.GET,
 //			    null,
 //			    new ParameterizedTypeReference<List<Hotel>>() {}
 //			);
+//		List<Hotel> hotels = hotelServiceResponse.getBody();
+		
+		
+		
 		List<Hotel> hotels = hotelService.getHotels();
-		
-		
 		
 		for(Rating rating:userRatings) {
 			hotels.stream().forEach((hotel)->{
