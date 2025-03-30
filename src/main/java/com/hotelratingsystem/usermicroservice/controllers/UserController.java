@@ -18,6 +18,7 @@ import com.hotelratingsystem.usermicroservice.entities.User;
 import com.hotelratingsystem.usermicroservice.services.UserService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 
 
 
@@ -34,7 +35,8 @@ public class UserController {
 	RestTemplate restTemplate;
 	
 	@GetMapping("/get/{id}")
-	@CircuitBreaker(name = "ratingAndHotelBreaker", fallbackMethod = "ratingAndHotelFallback")
+//	@CircuitBreaker(name = "ratingAndHotelBreaker", fallbackMethod = "ratingAndHotelFallback")
+	@RateLimiter(name = "userRateLimiter", fallbackMethod = "ratingAndHotelFallback")
 	public ResponseEntity<User> getUser(@PathVariable int id){
 		
 			User user = userService.getUser(id);	
